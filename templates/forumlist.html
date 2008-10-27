@@ -1,0 +1,24 @@
+$def with (board, boardname, forums)
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en">
+  <head>
+    <meta http-equiv="Content-Type"
+          content="text/html; charset=cp850" />
+    <title>$boardname</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles.css" />
+  </head>
+  <body>
+    <h1>$boardname</h1>
+    <p>
+      Forums in this bulletin board:
+    </p>
+    <ul>
+    $if not forums:
+        <li>(none)</li>
+    $else:
+        $for row in forums:
+            <li><a href="/$board/$row['id']">$row['id'] - $row['title']</a></li>
+    </ul>
+  </body>
+</html>

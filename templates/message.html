@@ -1,0 +1,31 @@
+$def with (board, boardname, forum, forumname, message, reference, followups)
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en">
+  <head>
+    <meta http-equiv="Content-Type"
+          content="text/html; charset=cp850" />
+    <title>#$message['id'] - $message['mfrom'].title() - $message['subject']</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles.css" />
+  </head>
+  <body>
+    <h1>#$message['id'] - $message['mfrom'].title() - $message['subject']</h1>
+    <dl id="messageheader">
+      <dt>Date</dt><dd>$message['mdate'] $message['mtime']</dd>
+      <dt>From</dt><dd>$message['mfrom']</dd>
+      <dt>To</dt><dd>$message['mto']</dd>
+      <dt>Subject</dt><dd>$message['subject']</dd>
+      <dt>Forum</dt><dd><a href="/$board">$boardname</a> - <a href="/$board/$forum">$forum - $forumname</a></dd>
+      $if reference:
+          <dt>Reply-To</dt><dd><a href="/$board/$forum/$reference['id']">#$reference['id'] -
+          $reference['mfrom'] to $reference['mto']</a></dd>
+    </dl>
+    <pre id="message">$message['body']</pre>
+    $if followups:
+        <h2>Responses</h2>
+        <ul>
+        $for row in followups:
+            <li><a href="/$board/$forum/$row['id']">#$row['id'] - $row['mfrom']</li>
+        </ul>
+  </body>
+</html>

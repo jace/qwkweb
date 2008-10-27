@@ -1,0 +1,40 @@
+body {
+  font-family: monospace;
+}
+
+dl#messageheader {
+  overflow: auto;
+}
+
+#messageheader dt {
+  font-weight: bold;
+  width: 3em;
+  float: left;
+  clear: both;
+}
+
+#messageheader dt:after {
+  content: ":"
+}
+
+#messageheader dd {
+  float: left;
+}
+
+pre#message {
+  border-top: 1px solid gray;
+  border-bottom: 1px solid gray;
+  padding: 0.5em 0 0.5em 0;
+  clear: both;
+}
+
+table#messagelist th {
+  padding: 0 0.5em 0 0.5em;
+  text-align: left;
+  font-weight: bold;
+  border-bottom: 1px solid gray;
+}
+
+table#messagelist td {
+  padding: 0 0.5em 0 0.5em;
+}

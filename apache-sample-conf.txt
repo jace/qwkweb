@@ -1,0 +1,21 @@
+<VirtualHost *>
+  ServerName bbs.seacrow.com
+  DocumentRoot /var/www/qwkweb
+
+  RewriteEngine On
+  RewriteCond %{REQUEST_URI} !^/icons
+  RewriteCond %{REQUEST_URI} !^/favicon.ico$
+  RewriteCond %{REQUEST_URI} !^(.*)+qwkweb.py/
+  RewriteRule ^/(.*)$ /qwkweb.py/$1 [PT]
+
+</VirtualHost>
+
+WSGIDaemonProcess qwkweb home=/var/www/qwkweb
+<Directory /var/www/qwkweb>
+  WSGIProcessGroup qwkweb
+  WSGIPassAuthorization On
+  <Files qwkweb.py>
+    SetHandler wsgi-script
+    Options ExecCGI
+  </Files>
+</Directory>

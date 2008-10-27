@@ -1,0 +1,41 @@
+$def with (board, boardname, forum, forumname, messages)
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en">
+  <head>
+    <meta http-equiv="Content-Type"
+          content="text/html; charset=cp850" />
+    <title>$boardname - $forum - $forumname</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles.css" />
+  </head>
+  <body>
+    <h1>$boardname - $forum - $forumname</h1>
+    <p>
+      Messages in this forum:
+    </p>
+    <table id="messagelist">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Date</th>
+          <th>From</th>
+          <th>To</th>
+          <th>Subject</th>
+        </tr>
+      </thead>
+      <tbody>
+        $if not messages:
+            <td colspan="5">(No messages)</td>
+        $else:
+            $for row in messages:
+                <tr>
+                <td><a href="/$board/$forum/$row['id']">$row['id']</a></td>
+                <td>$row['mdate'] $row['mtime']</td>
+                <td>$row['mfrom'].title()</td>
+                <td>$row['mto'].title()</td>
+                <td>$row['subject']</td>
+                </tr>
+      </tbody>
+    </table>
+  </body>
+</html>

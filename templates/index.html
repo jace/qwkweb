@@ -1,0 +1,43 @@
+$def with (bbsnames)
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en">
+  <head>
+    <meta http-equiv="Content-Type"
+          content="text/html; charset=cp850" />
+    <title>Bulletin Board Archives</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles.css" />
+  </head>
+  <body>
+    <h1>Bulletin Board Archives</h1>
+    <p>
+      Please select a BBS to browse its archives:
+    </p>
+    <ul>
+    $if not bbsnames:
+        <li>(none)</li>
+    $else:
+        $for row in bbsnames:
+            <li><a href="/$row['id']">$row['title']</a></li>
+    </ul>
+    <p>
+      <strong>Note:</strong> When prompted to enter a login and password,
+      use &ldquo;archives&rdquo; and &ldquo;archives&rdquo;. All pages on
+        this site require authentication. This is to keep web crawlers at bay.
+    </p>
+    <h2>Search</h2>
+    <form action="/search" method="get">
+      Coming soon...
+    </form>
+    <h2>Upload</h2>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+      <p>
+        Add to the archives by uploading your own QWK packets.
+      </p>
+      <p>
+        <input type="file" name="qwkfile" />
+        <input type="submit" value="Upload" />
+      </p>
+    </form>
+  </body>
+</html>
