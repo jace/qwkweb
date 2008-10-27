@@ -1,0 +1,72 @@
+$def with (mcount, messages, board, mfrom, mto, subject, body, order, size, prevstart, nextstart)
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en">
+  <head>
+    <meta http-equiv="Content-Type"
+          content="text/html; charset=cp850" />
+    <title>Search Results</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles.css" />
+    <link rel="home" href="/" />
+    <link rel="up" href="/" />
+  </head>
+  <body>
+    <p id="navbar">
+      <a href="/">Message Archive</a> &raquo; Search Results
+    </p>
+    <h1>Search Results</h1>
+    $if mcount == 0:
+        <p>
+          No messages match your search terms.
+        </p>
+    $else:
+        $if mcount == 1:
+            <p>
+              One message matched your search terms.
+            </p>
+        $else:
+            <p>
+              $mcount messages match your search terms:
+            </p>
+        <table id="messagelist">
+          <thead>
+            <tr>
+              <th><a href="/search?board=$board&amp;mfrom=$mfrom&amp;mto=$mto&amp;subject=$subject&amp;body=$body&amp;order=id">#</a></th>
+              <th><a href="/search?board=$board&amp;mfrom=$mfrom&amp;mto=$mto&amp;subject=$subject&amp;body=$body&amp;order=mdate">Date</a></th>
+              <th><a href="/search?board=$board&amp;mfrom=$mfrom&amp;mto=$mto&amp;subject=$subject&amp;body=$body&amp;order=mfrom">From</a></th>
+              <th><a href="/search?board=$board&amp;mfrom=$mfrom&amp;mto=$mto&amp;subject=$subject&amp;body=$body&amp;order=mto">To</a></th>
+              <th><a href="/search?board=$board&amp;mfrom=$mfrom&amp;mto=$mto&amp;subject=$subject&amp;body=$body&amp;order=subject">Subject</a></th>
+            </tr>
+          </thead>
+          <tbody>
+            $for row in messages:
+                <tr>
+                <td><a href="/$row['boardid']/$row['forumid']/$row['id']">$row['id']</a></td>
+                <td>$row['mdate'] $row['mtime']</td>
+                <td>$row['mfrom'].title()</td>
+                <td>$row['mto'].title()</td>
+                <td>$row['subject']</td>
+                </tr>
+            $if prevstart is not None or nextstart is not None:
+                <tr class="batch">
+                $if prevstart is None:
+                    <td class="batch-prev disabled" colspan="3">
+                      &laquo; Previous
+                    </td>
+                $else:
+                    <td class="batch-prev" colspan="3">
+                      <a href="/search?board=$board&amp;mfrom=$mfrom&amp;mto=$mto&amp;subject=$subject&amp;body=$body&amp;order=$order&amp;start=$prevstart&amp;size=$size">&laquo; Previous</a>
+                    </td>
+                $if nextstart is None:
+                    <td class="batch-next disabled" colspan="2">
+                      Next &raquo;
+                    </td>
+                $else:
+                    <td class="batch-next" colspan="2">
+                      <a href="/search?board=$board&amp;mfrom=$mfrom&amp;mto=$mto&amp;subject=$subject&amp;body=$body&amp;order=$order&amp;start=$nextstart&amp;size=$size">Next &raquo;</a>
+                    </td>
+                </tr>
+          </tbody>
+        </table>
+  </body>
+</html>

@@ -2,30 +2,25 @@ body {
   font-family: monospace;
 }
 
-dl#messageheader {
-  overflow: auto;
-}
-
-#messageheader dt {
-  font-weight: bold;
-  width: 3em;
-  float: left;
-  clear: both;
-}
-
-#messageheader dt:after {
-  content: ":"
-}
-
-#messageheader dd {
-  float: left;
-}
-
 pre#message {
   border-top: 1px solid gray;
   border-bottom: 1px solid gray;
   padding: 0.5em 0 0.5em 0;
-  clear: both;
+}
+
+#messageheader th, #messagefooter th {
+  text-align: left;
+  padding: 0 0.5em 0 0;
+  font-weight: bold;
+}
+
+#messageheader th:after, #messagefooter th:after {
+  content: ":"
+}
+
+#messageheader td, #messagefooter td {
+  text-align: left;
+  padding: 0;
 }
 
 table#messagelist th {
@@ -37,4 +32,55 @@ table#messagelist th {
 
 table#messagelist td {
   padding: 0 0.5em 0 0.5em;
+}
+
+#navbar {
+  padding-bottom: 0.5em;
+  border-bottom: 1px solid gray;
+}
+
+ul {
+  list-style-type: square;
+  padding-left: 0;
+  margin-left: 1.5em;
+}
+
+a, a:active, a:hover, a:visited {
+  text-decoration: none;
+}
+
+a:hover, a:active {
+  border-bottom: 1px dashed blue;
+}
+
+.batch {
+  border-top: 1px solid gray;
+}
+
+.batch-prev {
+  text-align: left;
+}
+
+.batch-next {
+  text-align: right;
+}
+
+.disabled {
+  color: gray;
+}
+
+.formbox {
+  float: left;
+  margin-right: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+form {
+  overflow: auto;
+}
+
+h2 {
+  clear: both;
+  margin-bottom: 0;
+  padding-bottom: 0;
 }

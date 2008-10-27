@@ -1,4 +1,4 @@
-$def with (board, boardname, forum, forumname, messages)
+$def with (board, boardname, forum, forumname, messages, order, size, prevstart, nextstart)
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
       lang="en">
@@ -7,8 +7,13 @@ $def with (board, boardname, forum, forumname, messages)
           content="text/html; charset=cp850" />
     <title>$boardname - $forum - $forumname</title>
     <link rel="stylesheet" type="text/css" href="/static/styles.css" />
+    <link rel="home" href="/" />
+    <link rel="up" href="/$board" />
   </head>
   <body>
+    <p id="navbar">
+      <a href="/">Message Archive</a> &raquo; <a href="/$board">$boardname</a> &raquo; $forum - $forumname
+    </p>
     <h1>$boardname - $forum - $forumname</h1>
     <p>
       Messages in this forum:
@@ -16,11 +21,11 @@ $def with (board, boardname, forum, forumname, messages)
     <table id="messagelist">
       <thead>
         <tr>
-          <th>#</th>
-          <th>Date</th>
-          <th>From</th>
-          <th>To</th>
-          <th>Subject</th>
+          <th><a href="/$board/$forum?order=id">#</a></th>
+          <th><a href="/$board/$forum?order=mdate">Date</a></th>
+          <th><a href="/$board/$forum?order=mfrom">From</a></th>
+          <th><a href="/$board/$forum?order=mto">To</a></th>
+          <th><a href="/$board/$forum?order=subject">Subject</a></th>
         </tr>
       </thead>
       <tbody>
@@ -34,6 +39,25 @@ $def with (board, boardname, forum, forumname, messages)
                 <td>$row['mfrom'].title()</td>
                 <td>$row['mto'].title()</td>
                 <td>$row['subject']</td>
+                </tr>
+            $if prevstart is not None or nextstart is not None:
+                <tr class="batch">
+                $if prevstart is None:
+                    <td class="batch-prev disabled" colspan="3">
+                      &laquo; Previous
+                    </td>
+                $else:
+                    <td class="batch-prev" colspan="3">
+                      <a href="/$board/$forum?order=$order&amp;start=$prevstart&amp;size=$size">&laquo; Previous</a>
+                    </td>
+                $if nextstart is None:
+                    <td class="batch-next disabled" colspan="2">
+                      Next &raquo;
+                    </td>
+                $else:
+                    <td class="batch-next" colspan="2">
+                      <a href="/$board/$forum?order=$order&amp;start=$nextstart&amp;size=$size">Next &raquo;</a>
+                    </td>
                 </tr>
       </tbody>
     </table>

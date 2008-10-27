@@ -1,4 +1,4 @@
-$def with (board, boardname, forum, forumname, message, reference, followups)
+$def with (board, boardname, forum, forumname, message, reference, followups, prevmsg, nextmsg)
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
       lang="en">
@@ -7,25 +7,42 @@ $def with (board, boardname, forum, forumname, message, reference, followups)
           content="text/html; charset=cp850" />
     <title>#$message['id'] - $message['mfrom'].title() - $message['subject']</title>
     <link rel="stylesheet" type="text/css" href="/static/styles.css" />
+    <link rel="home" href="/" />
+    <link rel="up" href="/$board/$forum" />
+    $if prevmsg:
+        <link rel="previous" href="/$board/$forum/$prevmsg['id']" />
+    $if nextmsg:
+        <link rel="next" href="/$board/$forum/$nextmsg['id']" />
   </head>
   <body>
-    <h1>#$message['id'] - $message['mfrom'].title() - $message['subject']</h1>
-    <dl id="messageheader">
-      <dt>Date</dt><dd>$message['mdate'] $message['mtime']</dd>
-      <dt>From</dt><dd>$message['mfrom']</dd>
-      <dt>To</dt><dd>$message['mto']</dd>
-      <dt>Subject</dt><dd>$message['subject']</dd>
-      <dt>Forum</dt><dd><a href="/$board">$boardname</a> - <a href="/$board/$forum">$forum - $forumname</a></dd>
+    <p id="navbar">
+      <a href="/">Message Archive</a> &raquo; <a href="/$board">$boardname</a> &raquo; <a href="/$board/$forum">$forum - $forumname</a> &raquo; #$message['id']
+    </p>
+    <table id="messageheader">
+      <tr><th>Date</th><td>$message['mdate'] $message['mtime']</td></tr>
+      <tr><th>From</th><td>$message['mfrom'].title()</td></tr>
+      <tr><th>To</th><td>$message['mto'].title()</td></tr>
+      <tr><th>Subject</th><td>$message['subject']</td></tr>
       $if reference:
-          <dt>Reply-To</dt><dd><a href="/$board/$forum/$reference['id']">#$reference['id'] -
-          $reference['mfrom'] to $reference['mto']</a></dd>
-    </dl>
+          <tr><th>Reply-To</th><td><a href="/$board/$forum/$reference['id']">#$reference['id'] -
+          $reference['mfrom'].title() &rarr; $reference['mto'].title()</a></td></tr>
+    </table>
     <pre id="message">$message['body']</pre>
+    <table id="messagefooter">
+      $if prevmsg:
+          <tr><th>Previous</th><td><a href="/$board/$forum/$prevmsg['id']">#$prevmsg['id'] -
+          $prevmsg['mfrom'].title() &rarr; $prevmsg['mto'].title() /
+          $prevmsg['subject']</a></td></tr>
+      $if nextmsg:
+          <tr><th>Next</th><td><a href="/$board/$forum/$nextmsg['id']">#$nextmsg['id'] -
+          $nextmsg['mfrom'].title() &rarr; $nextmsg['mto'].title() /
+          $nextmsg['subject']</a></td></tr>
+    </table>
     $if followups:
         <h2>Responses</h2>
         <ul>
         $for row in followups:
-            <li><a href="/$board/$forum/$row['id']">#$row['id'] - $row['mfrom']</li>
+            <li><a href="/$board/$forum/$row['id']">#$row['id'] - $row['mfrom'].title()</li>
         </ul>
   </body>
 </html>

@@ -7,6 +7,7 @@ $def with (bbsnames)
           content="text/html; charset=cp850" />
     <title>Bulletin Board Archives</title>
     <link rel="stylesheet" type="text/css" href="/static/styles.css" />
+    <link rel="home" href="/" />
   </head>
   <body>
     <h1>Bulletin Board Archives</h1>
@@ -26,18 +27,53 @@ $def with (bbsnames)
         this site require authentication. This is to keep web crawlers at bay.
     </p>
     <h2>Search</h2>
-    <form action="/search" method="get">
-      Coming soon...
+    <p>
+      The current search facility is fairly limited. Multiple keywords per
+      field are not supported. The contents of each field are regarded as
+      a single phrase.
+    </p>
+    <form action="/search" method="get" id="search">
+      <div class="formbox">
+        Search within board:<br />
+        <select name="board">
+          <option value="">All</option>
+          $for row in bbsnames:
+              <option value="$row['id']">$row['title']</option>
+        </select>
+      </div>
+      <div class="formbox">
+        From:<br />
+        <input type="text" name="mfrom" />
+      </div>
+      <div class="formbox">
+        To:<br />
+        <input type="text" name="mto" />
+      </div>
+      <div class="formbox">
+        Subject:<br />
+        <input type="text" name="subject" />
+      </div>
+      <div class="formbox">
+        Message text:<br />
+        <input type="text" name="body" />
+      </div>
+      <div class="formbox">
+        <br />
+        <input type="submit" value="Search" />
+      </div>
     </form>
     <h2>Upload</h2>
-    <form action="/upload" method="post" enctype="multipart/form-data">
-      <p>
-        Add to the archives by uploading your own QWK packets.
-      </p>
-      <p>
-        <input type="file" name="qwkfile" />
-        <input type="submit" value="Upload" />
-      </p>
+    <p>
+      Add to the archives by uploading your own QWK packets.
+    </p>
+    <p>
+      By uploading here, you assert that you have obtained permission to
+      publicly archive the messages contained within the packet. Uploaded
+      messages cannot be deleted.
+    </p>
+    <form action="/upload" method="post" enctype="multipart/form-data" id="upload">
+      <input type="file" name="qwkfile" />
+      <input type="submit" value="Upload" />
     </form>
   </body>
 </html>
