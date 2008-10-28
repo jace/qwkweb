@@ -102,3 +102,8 @@ h2 {
   margin: 0;
   list-style-type: none;
 }
+
+.boardnames {
+  font-size: 150%;
+  font-weight: normal;
+}

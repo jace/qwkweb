@@ -12,9 +12,9 @@ $def with (bbsnames)
   <body>
     <h1>Bulletin Board Archives</h1>
     <p>
-      Please select a BBS to browse its archives:
+      Select a BBS to browse its archives:
     </p>
-    <ul>
+    <ul class="boardnames">
     $if not bbsnames:
         <li>(none)</li>
     $else:
@@ -22,14 +22,14 @@ $def with (bbsnames)
             <li><a href="/$row['id']">$row['title']</a></li>
     </ul>
     <p>
-      <strong>Note:</strong> When prompted to enter a login and password,
+      When prompted to enter a login and password,
       use &ldquo;archives&rdquo; and &ldquo;archives&rdquo;. All pages on
-        this site require authentication. This is to keep web crawlers at bay.
+      this site require authentication. This is to keep web crawlers at bay.
     </p>
     <h2>Search</h2>
     <p>
       The current search facility is fairly limited. Multiple keywords per
-      field are not supported. The contents of each field are regarded as
+      field are not supported; the contents of each field are regarded as
       a single phrase.
     </p>
     <form action="/search" method="get" id="search">
