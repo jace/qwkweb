@@ -26,6 +26,11 @@ $def with (board, boardname, forum, forumname, message, reference, followups, pr
       $if reference:
           <tr><th>Reply-To</th><td><a href="/$board/$forum/$reference['id']">#$reference['id'] -
           $reference['mfrom'].title() &rarr; $reference['mto'].title()</a></td></tr>
+      $if followups:
+          <tr><th>Responses</th><td><ul class="headerlist">
+          $for row in followups:
+              <li><a href="/$board/$forum/$row['id']">#$row['id'] - $row['mfrom'].title()</li>
+          </ul></td></tr>
     </table>
     <pre id="message">$message['body']</pre>
     <table id="messagefooter">
@@ -38,11 +43,5 @@ $def with (board, boardname, forum, forumname, message, reference, followups, pr
           $nextmsg['mfrom'].title() &rarr; $nextmsg['mto'].title() /
           $nextmsg['subject']</a></td></tr>
     </table>
-    $if followups:
-        <h2>Responses</h2>
-        <ul>
-        $for row in followups:
-            <li><a href="/$board/$forum/$row['id']">#$row['id'] - $row['mfrom'].title()</li>
-        </ul>
   </body>
 </html>

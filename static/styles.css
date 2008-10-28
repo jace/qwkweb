@@ -9,9 +9,11 @@ pre#message {
 }
 
 #messageheader th, #messagefooter th {
-  text-align: left;
+  text-align: right;
+  color: gray;
   padding: 0 0.5em 0 0;
   font-weight: bold;
+  vertical-align: top;
 }
 
 #messageheader th:after, #messagefooter th:after {
@@ -21,6 +23,7 @@ pre#message {
 #messageheader td, #messagefooter td {
   text-align: left;
   padding: 0;
+  vertical-align: top;
 }
 
 table#messagelist th {
@@ -49,7 +52,7 @@ a, a:active, a:hover, a:visited {
   text-decoration: none;
 }
 
-a:hover, a:active {
+a:hover, a:active, tr.highlight {
   border-bottom: 1px dashed blue;
 }
 
@@ -83,4 +86,19 @@ h2 {
   clear: both;
   margin-bottom: 0;
   padding-bottom: 0;
+}
+
+#forumlist {
+  column-count: 4;
+  -moz-column-count: 4;
+  -webkit-column-count: 4;
+  column-gap: 0.5em;
+  -moz-column-gap: 0.5em;
+  -webkit-column-gap: 0.5em;
+}
+
+.headerlist {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
 }
