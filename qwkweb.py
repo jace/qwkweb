@@ -241,7 +241,7 @@ class ForumIndex:
                               what='id, mdate, mtime, mfrom, mto, subject',
                               offset='$start',
                               limit='$size',
-                              order='$order')
+                              order=order)
         if start == 0:
             prevstart = None
         else:
