@@ -140,15 +140,15 @@ class Upload:
         qwk = QwkPacket(StringIO(qwkfile))
 
         # Register the BBS if not previously known
-        bbsid = qwk.bbsid.lower()
+        bbsid = unicode(qwk.bbsid.lower(), 'cp850')
         yield "BBS: %s: %s" % (bbsid, qwk.bbsname)
         if db.select('board', locals(), what='count(*) as count',
                       where='id = $bbsid')[0].count == 0:
-            db.insert('board', id=bbsid, title=qwk.bbsname)
+            db.insert('board', id=bbsid, title=unicode(qwk.bbsname, 'cp850'))
 
         # Parse messages per forum
         for forum in qwk.forums:
-            forumtitle = qwk.forums[forum]['title']
+            forumtitle = unicode(qwk.forums[forum]['title'], 'cp850')
             if db.select('forum', locals(), what='count(*) as count',
                           where='id = $forum AND boardid = $bbsid')[0].count == 0:
                 yield "Registering new forum: %d: %s" % (forum, forumtitle)
@@ -163,18 +163,23 @@ class Upload:
                               )[0].count == 0:
                     # Message not in archive already. Insert it.
                     yield "Message %d in forum %d %s (%s %s/%s/%s/%s)." % (
-                        msgno, forum, forumtitle, message.date, message.time, message.mfrom, message.mto, message.subject)
+                        msgno, forum, forumtitle,
+                        unicode(message.date, 'cp850'),
+                        unicode(message.time, 'cp850'),
+                        unicode(message.mfrom, 'cp850'),
+                        unicode(message.mto, 'cp850'),
+                        unicode(message.subject, 'cp850'))
                     db.insert('message',
                                id = msgno,
                                forumid = forum,
                                boardid = bbsid,
-                               mdate = message.date,
-                               mtime = message.time,
-                               mfrom = message.mfrom,
-                               mto = message.mto,
+                               mdate = unicode(message.date, 'cp850'),
+                               mtime = unicode(message.time, 'cp850'),
+                               mfrom = unicode(message.mfrom, 'cp850'),
+                               mto = unicode(message.mto, 'cp850'),
                                reference = message.reference,
-                               subject = message.subject,
-                               body = message.body
+                               subject = unicode(message.subject, 'cp850'),
+                               body = unicode(message.body, 'cp850')
                                )
                 else:
                     yield "Ignoring duplicate message %d in forum %d %s." % (msgno, forum, forumtitle)
