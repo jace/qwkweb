@@ -195,9 +195,12 @@ class BoardIndex:
             web.header('Content-Type', 'text/html; charset=utf-8')
             return render.unauthorized()
         boardnames = db.select('board', locals(), where='id = $board')
-        if not boardnames:
+        #if not boardnames:
+        #    return "Unknown board."
+        try:
+            boardname = boardnames[0].title
+        except IndexError:
             return "Unknown board."
-        boardname = boardnames[0].title
         forums = db.select('forum', locals(), where='boardid = $board', order='id')
         web.header('Content-Type', 'text/html; charset=utf-8')
         return render.forumlist(board, boardname, list(forums))
@@ -261,13 +264,19 @@ class ViewMessage:
         forum = int(forum)
         msgno = int(msgno)
         boardnames = db.select('board', locals(), where='id = $board')
-        if not boardnames:
+        #if not boardnames:
+        #    return "Unknown board."
+        try:
+            boardname = boardnames[0].title
+        except IndexError:
             return "Unknown board."
-        boardname = boardnames[0].title
         forumnames = db.select('forum', locals(), where='id = $forum AND boardid = $board')
-        if not forumnames:
+        #if not forumnames:
+        #    return "Unknown forum."
+        try:
+            forumname = forumnames[0].title
+        except IndexError:
             return "Unknown forum."
-        forumname = forumnames[0].title
         # Retrieve and display message.
         messages = list(db.select('message', locals(),
                        where='id = $msgno AND forumid = $forum AND boardid = $board'))
