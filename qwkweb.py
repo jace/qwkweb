@@ -220,11 +220,11 @@ class ForumIndex:
         size = int(form.size)
         order = form.order
         forum = int(forum)
-        boardnames = db.select('board', locals(), where='id = $board')
+        boardnames = list(db.select('board', locals(), where='id = $board'))
         if not boardnames:
             return "Unknown board."
         boardname = boardnames[0].title
-        forumnames = db.select('forum', locals(), where='id = $forum AND boardid = $board')
+        forumnames = list(db.select('forum', locals(), where='id = $forum AND boardid = $board'))
         if not forumnames:
             return "Unknown forum."
         forumname = forumnames[0].title
